@@ -1,0 +1,69 @@
+body {
+    background-color: black;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  #titleScreen {
+    text-align: center;
+  }
+  
+  #titleScreen button {
+    background: white;
+    border: none;
+    color: black;
+    padding: 10px 20px;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  
+  #titleScreen button:hover {
+    background: grey;
+  }
+  
+  #container {
+    position: relative;
+    width: 80%;
+  }
+  
+  #videoPlayer {
+    width: 100%;
+    z-index: 1; /* Ensure the video player is below the choices */
+  }
+  
+  .choices-bar {
+    display: none;
+    position: absolute;
+    bottom: 100px; /* Moved further up */
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 10px;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    gap: 10px;
+    z-index: 2; /* Ensure choices are above the video player */
+  }
+  
+  #choices button {
+    background: transparent;
+    border: none; /* Remove border */
+    color: white;
+    padding: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    flex: 1 1 45%;
+    text-decoration: underline; /* Underline text */
+  }
+  
+  #choices button:hover {
+    color: grey; /* Change color on hover */
+    text-decoration: underline; /* Keep underline on hover */
+  }
+  

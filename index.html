@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Choose Your Adventure</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+  <div id="titleScreen">
+    <h1>Choose Your Adventure</h1>
+    <button onclick="startAdventure()">Begin the Adventure</button>
+  </div>
+  <div id="container" style="display: none;">
+    <video id="videoPlayer" controls>
+      <source id="videoSource" src="videos/scene0.mp4" type="video/mp4">
+    </video>
+    <div id="choices" class="choices-bar">
+      <button onclick="choosePath('videos/scene2A.mp4', 3)">Get up immediately</button>
+      <button onclick="choosePath('videos/scene2B.mp4', 3)">Snooze the alarm</button>
+      <button onclick="choosePath('videos/scene2C.mp4', 3)">Destroy the alarm clock</button>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
