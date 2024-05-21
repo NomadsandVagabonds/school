@@ -8,17 +8,28 @@
   <div id="titleScreen">
     <h1>Choose Your Adventure</h1>
     <button onclick="startAdventure()">Begin the Adventure</button>
+    <button onclick="jumpToScene4()">Testing</button>
   </div>
   <div id="container" style="display: none;">
     <video id="videoPlayer" controls>
       <source id="videoSource" src="videos/scene0.mp4" type="video/mp4">
     </video>
     <div id="choices" class="choices-bar">
-      <button onclick="choosePath('videos/scene2A.mp4', 3)">Get up immediately</button>
-      <button onclick="choosePath('videos/scene2B.mp4', 3)">Snooze the alarm</button>
-      <button onclick="choosePath('videos/scene2C.mp4', 3)">Destroy the alarm clock</button>
+      <!-- Choices will be dynamically inserted here -->
+    </div>
+    <div id="stateDisplay" class="state-display">
+      <!-- State information will be displayed here -->
     </div>
   </div>
   <script src="script.js"></script>
+  <script>
+    function jumpToScene4() {
+      titleScreen.style.display = 'none';
+      container.style.display = 'block';
+      videoSource.src = 'videos/scene4.mp4';
+      videoPlayer.load();
+      videoPlayer.play();
+    }
+  </script>
 </body>
 </html>
