@@ -14,7 +14,6 @@ var choiceTimes = {
   'videos/scene2D.mp4': 4,
   'videos/scene3.mp4': 21,
   'videos/scene3C.mp4': 3,
-  'videos/scene3A.mp4': 3,
   'videos/scene3B.mp4': 3,
   'videos/scene4.mp4': 3,
   'videos/scene_principal.mp4': 3,
