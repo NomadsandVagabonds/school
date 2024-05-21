@@ -8,7 +8,7 @@ var choicesDisplayed = false;
 
 // Dictionary to store choice times for each video
 var choiceTimes = {
-  'videos/scene1.mp4': 3,
+  'videos/scene1.mp4': 9,
   'videos/scene2B.mp4': 3,
   'videos/scene2C.mp4': 3,
   'videos/scene2D.mp4': 3,
