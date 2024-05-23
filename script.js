@@ -14,10 +14,9 @@ var choiceTimes = {
   'videos/scene2D.mp4': 4,
   'videos/scene3.mp4': 21,
   'videos/scene3C.mp4': 3,
-  'videos/scene3B.mp4': 3,
   'videos/scene4.mp4': 3,
   'videos/scene_principal.mp4': 3,
-  'videos/scene_chemistry.mp4': 3,
+  'videos/scene_chemistry.mp4': 9,
   'videos/scene_chemistry_test.mp4': 3,
   'videos/scene_library.mp4': 3,
   'videos/scene_library_nerds.mp4': 3,
@@ -303,7 +302,7 @@ function showChoices(video) {
     choices.innerHTML = `
       <button onclick="${enterChoice}">Enter</button>
       <button onclick="choosePath('videos/scene4.mp4')">I Need More Time to Prepare</button>
-      <button onclick="(parseInt(sessionStorage.getItem('popularity')) === 3) ? choosePath('videos/ending_pop.mp4') : choosePath('videos/go_unpop.mp4')">This is not my problem, I just want to be popular</button>
+      <button onclick="(parseInt(sessionStorage.getItem('popularity')) >= 3) ? choosePath('videos/ending_pop.mp4') : choosePath('videos/go_unpop.mp4')">This is not my problem, I just want to be popular</button>
     `;
   } 
 }
