@@ -11,11 +11,11 @@ var choiceTimes = {
   'videos/scene1.mp4': 9,
   'videos/scene2B.mp4': 3,
   'videos/scene2C.mp4': 3,
-  'videos/scene2D.mp4': 4,
+  'videos/scene2A.mp4': 15,
   'videos/scene3.mp4': 21,
   'videos/scene3C.mp4': 3,
   'videos/scene4.mp4': 3,
-  'videos/scene_principal.mp4': 3,
+  'videos/scene_principal.mp4': 6,
   'videos/scene_chemistry.mp4': 9,
   'videos/scene_chemistry_test.mp4': 3,
   'videos/scene_library.mp4': 3,
@@ -33,6 +33,7 @@ var choiceTimes = {
 function updateStateDisplay() {
   const stateDisplay = document.getElementById('stateDisplay');
   const drugs = sessionStorage.getItem('drugs');
+  const pranks = sessionStorage.getItem('pranks');
   const study = sessionStorage.getItem('study');
   const plot = sessionStorage.getItem('plot');
   const nerds = sessionStorage.getItem('nerds');
@@ -47,6 +48,7 @@ function updateStateDisplay() {
 
   stateDisplay.innerHTML = `
     <p>Drugs: ${drugs}</p>
+    <p>Pranks: ${pranks}</p>
     <p>Plot: ${plot}</p>
     <p>Nerds: ${nerds}</p>
     <p>Study: ${study}</p>
@@ -69,6 +71,7 @@ function startAdventure() {
   videoPlayer.play();
   // Initialize or reset the states
   sessionStorage.setItem('drugs', 'false');
+  sessionStorage.setItem('pranks', '0');
   sessionStorage.setItem('plot', 'false');
   sessionStorage.setItem('nerds', 'false');
   sessionStorage.setItem('study', 'false');
@@ -125,10 +128,10 @@ function showChoices(video) {
       <button onclick="choosePath('videos/go2B.mp4')">Snooze again</button>
       <button onclick="choosePath('videos/scene2D.mp4')">Reluctantly get up</button>
     `;
-  } else if (video === 'videos/scene2D.mp4') {
+  } else if (video === 'videos/scene2A.mp4') {
     choices.innerHTML = `
-    <button onclick="sessionStorage.setItem('breakfast', 'true'); updateStateDisplay(); choosePath('videos/scene3.mp4')">Eat Breakfast</button>
-      <button onclick="choosePath('videos/scene3.mp4', 'goal', 'test')">Skip and Go to School</button>
+    <button onclick="sessionStorage.setItem('breakfast', 'true'); updateStateDisplay(); choosePath('videos/scene_break.mp4')">Eat Breakfast</button>
+      <button onclick="choosePath('videos/scene_nobreak.mp4', 'goal', 'test')">Skip and Go to School</button>
     `;
   } else if (video === 'videos/scene3.mp4') {
     choices.innerHTML = `
@@ -179,7 +182,7 @@ function showChoices(video) {
     let studyState = sessionStorage.getItem('study') === 'true';
     if (!studyState) {
       choices.innerHTML = `
-        <button onclick="sessionStorage.setItem('popularity', (parseInt(sessionStorage.getItem('popularity')) + 1).toString()); updateStateDisplay(); choosePath('videos/go_cheat.mp4')">Let Them Cheat</button>
+        <button onclick="sessionStorage.setItem('popularity', (parseInt(sessionStorage.getItem('popularity')) + 1).toString()); updateStateDisplay(); choosePath('videos/temp/scene_library/scene_library.mp4')">Let Them Cheat</button>
         <button onclick="choosePath('videos/scene_chemistry_testoverf.mp4')">Tell Them No</button>
       `;
     } else {
@@ -351,8 +354,8 @@ videoPlayer.addEventListener('ended', function() {
     videoSource.src = 'videos/scene1.mp4';
     videoPlayer.load();
     videoPlayer.play();
-  } else if (currentVideo === 'videos/scene2A.mp4') {
-    videoSource.src = 'videos/scene2D.mp4';
+  } else if (currentVideo === 'videos/scene_break.mp4' || currentVideo === 'videos/scene_nobreak.mp4') {
+    videoSource.src = 'videos/scene3.mp4';
     videoPlayer.load();
     videoPlayer.play();
   } else if (currentVideo === 'videos/scene2B.mp4') {
@@ -365,20 +368,20 @@ videoPlayer.addEventListener('ended', function() {
     showRebirthButton(); // Show rebirth button for game over
   } else if (currentVideo === 'videos/scene3.mp4') {
     showChoices('videos/scene3.mp4'); // Show choices for Scene 3 when the video ends
-  } else if (currentVideo === 'videos/scene3A.mp4' || currentVideo === 'videos/scene3B.mp4' || currentVideo === 'videos/scene_prank1.mp4' || currentVideo === 'videos/scene_prank2.mp4') {
+  } else if (currentVideo === 'videos/scene3A.mp4' || currentVideo === 'videos/scene_prank1.mp4' || currentVideo === 'videos/scene_prank2.mp4' || currentVideo ===  'videos/scene_principal1.mp4') {
     videoSource.src = 'videos/scene4.mp4';
     videoPlayer.load();
     videoPlayer.play();
   } else if (currentVideo === 'videos/scene3C.mp4') {
     showChoices('videos/scene3C.mp4'); // Show choices for Scene 3C when the video ends
+  } else if (currentVideo === 'videos/scene3B.mp4') {
+    videoSource.src = 'videos/scene_principal.mp4';
+    videoPlayer.load();
+    videoPlayer.play();
   } else if (currentVideo === 'videos/go3C.mp4') {
     showRebirthButton(); // Show rebirth button for game over
   } else if (currentVideo === 'videos/scene4.mp4') {
     showChoices('videos/scene4.mp4'); // Show choices for Scene 4 when the video ends
-  } else if (currentVideo === 'videos/scene_principal1.mp4') {
-    videoSource.src = 'videos/scene4.mp4';
-    videoPlayer.load();
-    videoPlayer.play();
   } else if (currentVideo === 'videos/scene_chemistry_bomb.mp4') {
     videoSource.src = 'videos/go_fbi.mp4';
     videoPlayer.load();
