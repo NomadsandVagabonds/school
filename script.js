@@ -10,13 +10,13 @@ var choicesDisplayed = false;
 var choiceTimes = {
   'videos/scene1.mp4': 9,
   'videos/scene2B.mp4': 3,
-  'videos/scene2C.mp4': 3,
   'videos/scene2A.mp4': 15,
   'videos/scene3.mp4': 21,
   'videos/scene3C.mp4': 3,
   'videos/scene4.mp4': 3,
   'videos/scene_principal.mp4': 6,
   'videos/scene_chemistry.mp4': 9,
+  'videos/scene_chemistry2.mp4': 2,
   'videos/scene_chemistry_test.mp4': 3,
   'videos/scene_library.mp4': 3,
   'videos/scene_library_nerds.mp4': 3,
@@ -126,7 +126,7 @@ function showChoices(video) {
   } else if (video === 'videos/scene2B.mp4') {
     choices.innerHTML = `
       <button onclick="choosePath('videos/go2B.mp4')">Snooze again</button>
-      <button onclick="choosePath('videos/scene2D.mp4')">Reluctantly get up</button>
+      <button onclick="choosePath('videos/scene2A.mp4')">Reluctantly get up</button>
     `;
   } else if (video === 'videos/scene2A.mp4') {
     choices.innerHTML = `
@@ -141,7 +141,7 @@ function showChoices(video) {
     `;
   } else if (video === 'videos/scene3C.mp4') {
     choices.innerHTML = `
-      <button onclick="choosePath('videos/scene4.mp4')">Go back to school</button>
+      <button onclick="choosePath('videos/scene3A.mp4')">Go back to school</button>
       <button onclick="choosePath('videos/go3C.mp4')">Commit to your choice</button>
     `;
   } else if (video === 'videos/scene4.mp4') {
@@ -172,6 +172,13 @@ function showChoices(video) {
       `;
     }
   } else if (video === 'videos/scene_chemistry.mp4') {
+    choices.innerHTML = `
+      <button onclick="choosePath('videos/scene_chemistry_test.mp4')">Take the Exam</button>
+      <button onclick="sessionStorage.setItem('drugs', 'true'); updateStateDisplay(); choosePath('videos/scene_chemistry_drugs.mp4')">Make drugs</button>
+      <button onclick="choosePath('videos/scene_chemistry_bomb.mp4')">Make a bomb</button>
+      <button onclick="choosePath('videos/scene4.mp4')">Leave</button>
+    `;
+  } else if (video === 'videos/scene_chemistry2.mp4') {
     choices.innerHTML = `
       <button onclick="choosePath('videos/scene_chemistry_test.mp4')">Take the Exam</button>
       <button onclick="sessionStorage.setItem('drugs', 'true'); updateStateDisplay(); choosePath('videos/scene_chemistry_drugs.mp4')">Make drugs</button>
@@ -361,7 +368,7 @@ videoPlayer.addEventListener('ended', function() {
   } else if (currentVideo === 'videos/scene2B.mp4') {
     showChoices('videos/scene2B.mp4'); // Show choices for Scene 2B when the video ends
   } else if (currentVideo === 'videos/scene2C.mp4') {
-    videoSource.src = 'videos/scene2D.mp4';
+    videoSource.src = 'videos/scene2A.mp4';
     videoPlayer.load();
     videoPlayer.play();
   } else if (currentVideo === 'videos/go2B.mp4') {
@@ -391,7 +398,7 @@ videoPlayer.addEventListener('ended', function() {
     videoPlayer.load();
     videoPlayer.play();
   } else if (currentVideo === 'videos/scene_chemistry_testoverf.mp4' || currentVideo === 'videos/scene_chemistry_testoverpc.mp4' || currentVideo === 'videos/scene_chemistry_testoverp.mp4' || currentVideo === 'videos/scene_chemistry_drugs.mp4') {
-    videoSource.src = 'videos/scene_chemistry.mp4';
+    videoSource.src = 'videos/scene_chemistry2.mp4';
     videoPlayer.load();
     videoPlayer.play();
   } else if (currentVideo === 'videos/scene_library_study.mp4' || 
