@@ -17,7 +17,7 @@ var choiceTimes = {
   'videos/scene_principal.mp4': 6,
   'videos/scene_chemistry.mp4': 9,
   'videos/scene_chemistry2.mp4': 2,
-  'videos/scene_chemistry_test.mp4': 3,
+  'videos/scene_chemistry_test.mp4': 9,
   'videos/scene_library.mp4': 3,
   'videos/scene_library_nerds.mp4': 3,
   'videos/scene_library_ritual.mp4': 3,
