@@ -175,21 +175,21 @@ function showChoices(video) {
     choices.innerHTML = `
       <button onclick="choosePath('videos/scene_chemistry_test.mp4')">Take the Exam</button>
       <button onclick="sessionStorage.setItem('drugs', 'true'); updateStateDisplay(); choosePath('videos/scene_chemistry_drugs.mp4')">Make drugs</button>
-      <button onclick="choosePath('videos/scene_chemistry_bomb.mp4')">Make a bomb</button>
+      <button onclick="choosePath('videos/go_bomb.mp4')">Make a bomb</button>
       <button onclick="choosePath('videos/scene4.mp4')">Leave</button>
     `;
   } else if (video === 'videos/scene_chemistry2.mp4') {
     choices.innerHTML = `
       <button onclick="choosePath('videos/scene_chemistry_test.mp4')">Take the Exam</button>
       <button onclick="sessionStorage.setItem('drugs', 'true'); updateStateDisplay(); choosePath('videos/scene_chemistry_drugs.mp4')">Make drugs</button>
-      <button onclick="choosePath('videos/scene_chemistry_bomb.mp4')">Make a bomb</button>
+      <button onclick="choosePath('videos/go_bomb.mp4')">Make a bomb</button>
       <button onclick="choosePath('videos/scene4.mp4')">Leave</button>
     `;
   } else if (video === 'videos/scene_chemistry_test.mp4') {
     let studyState = sessionStorage.getItem('study') === 'true';
     if (!studyState) {
       choices.innerHTML = `
-        <button onclick="sessionStorage.setItem('popularity', (parseInt(sessionStorage.getItem('popularity')) + 1).toString()); updateStateDisplay(); choosePath('videos/temp/scene_library/scene_library.mp4')">Let Them Cheat</button>
+        <button onclick="sessionStorage.setItem('popularity', (parseInt(sessionStorage.getItem('popularity')) + 1).toString()); updateStateDisplay(); choosePath('videos/go_cheat.mp4')">Let Them Cheat</button>
         <button onclick="choosePath('videos/scene_chemistry_testoverf.mp4')">Tell Them No</button>
       `;
     } else {
@@ -267,7 +267,7 @@ function showChoices(video) {
     let coolState = sessionStorage.getItem('cool');
     let helpState = sessionStorage.getItem('help');
     choices.innerHTML = `
-    <button onclick="sessionStorage.getItem('cool') === 'true' ? choosePath('videos/scene_dumpsters_cool2.mp4') : choosePath('videos/scene_dumpsters_uncool.mp4')">Talk to Them</button>
+    <button onclick="sessionStorage.getItem('cool') === 'true' ? choosePath('videos/scene_dumpsters_cool2.mp4') : choosePath('videos/go_dumpsters.mp4')">Talk to Them</button>
     <button onclick="choosePath('videos/scene4.mp4')">Leave</button>
   `;
   
@@ -389,10 +389,6 @@ videoPlayer.addEventListener('ended', function() {
     showRebirthButton(); // Show rebirth button for game over
   } else if (currentVideo === 'videos/scene4.mp4') {
     showChoices('videos/scene4.mp4'); // Show choices for Scene 4 when the video ends
-  } else if (currentVideo === 'videos/scene_chemistry_bomb.mp4') {
-    videoSource.src = 'videos/go_fbi.mp4';
-    videoPlayer.load();
-    videoPlayer.play();
   } else if (currentVideo === 'videos/scene_chemistry_cheat.mp4' || currentVideo === 'videos/scene_chemistry_nocheat.mp4') {
     videoSource.src = 'videos/scene_chemistry_testoverp.mp4';
     videoPlayer.load();
@@ -410,7 +406,7 @@ videoPlayer.addEventListener('ended', function() {
     videoSource.src = 'videos/scene_dumpsters.mp4';
     videoPlayer.load();
   videoPlayer.play();
-  } else if (currentVideo === 'videos/scene_dumpsters_uncool.mp4' || currentVideo === 'videos/scene_dumpsters_trick.mp4') {
+  } else if (currentVideo === 'videos/scene_dumpsters_trick.mp4') {
     videoSource.src = 'videos/go_dumpsters.mp4';
     videoPlayer.load();
     videoPlayer.play();
