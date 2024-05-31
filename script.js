@@ -28,39 +28,11 @@ var choiceTimes = {
   'videos/scene_finale_good.mp4': 3,
   'videos/scene_finale_sneak.mp4': 3
   
+  
 };
 
 function updateStateDisplay() {
-  const stateDisplay = document.getElementById('stateDisplay');
-  const drugs = sessionStorage.getItem('drugs');
-  const pranks = sessionStorage.getItem('pranks');
-  const study = sessionStorage.getItem('study');
-  const plot = sessionStorage.getItem('plot');
-  const nerds = sessionStorage.getItem('nerds');
-  const location = sessionStorage.getItem('location');
-  const knowledge = sessionStorage.getItem('knowledge');
-  const help = sessionStorage.getItem('help');
-  const hand = sessionStorage.getItem('hand');
-  const breakfast = sessionStorage.getItem('breakfast');
-  const cool = sessionStorage.getItem('cool');
-  const popularity = sessionStorage.getItem('popularity');
-  const evil = sessionStorage.getItem('evil')
 
-  stateDisplay.innerHTML = `
-    <p>Drugs: ${drugs}</p>
-    <p>Pranks: ${pranks}</p>
-    <p>Plot: ${plot}</p>
-    <p>Nerds: ${nerds}</p>
-    <p>Study: ${study}</p>
-    <p>Location: ${location}</p>
-    <p>Knowledge: ${knowledge}</p>
-    <p>Help: ${help}</p>
-    <p>Hand: ${hand}</p>
-    <p>Breakfast: ${breakfast}</p>
-    <p>Cool: ${cool}</p>
-    <p>Popularity: ${popularity}</p>
-    <p>Evil: ${evil}</p>
-  `;
 }
 
 function startAdventure() {
@@ -83,6 +55,8 @@ function startAdventure() {
   sessionStorage.setItem('cool', 'false');
   sessionStorage.setItem('popularity', '0');
   sessionStorage.setItem('evil', 'false');
+  sessionStorage.setItem('prank1Done', 'false'); // Reset prank1Done
+  sessionStorage.setItem('prank2Done', 'false'); // Reset prank2Done
   updateStateDisplay(); // Call this function to update the state display
 }
 
@@ -249,7 +223,7 @@ function showChoices(video) {
   } else if (video === 'videos/scene_principal.mp4') {
     choices.innerHTML = `
       <button onclick="choosePath('videos/scene_principal1.mp4')">Apologize</button>
-      <button onclick="choosePath('videos/go_prank.mp4')">Shave his Mustache</button>
+      <button onclick="choosePath('videos/scene_principal_mustache.mp4')">Shave his Mustache</button>
     `;
     if (sessionStorage.getItem('knowledge') === 'true' && sessionStorage.getItem('location') === 'false') {
       choices.innerHTML += `
@@ -342,7 +316,10 @@ function choosePath(videoFile, choiceKey = '', choiceValue = '') {
 function showRebirthButton() {
   rebirthButton.innerText = 'Watch A ReRun';
   rebirthButton.classList.add('rebirth'); // Add the rebirth class for styling
-  rebirthButton.onclick = startAdventure;
+  rebirthButton.onclick = function() {
+    sessionStorage.clear(); // Clear all session storage
+    location.reload(); // Reload the page
+  };
   clearChoices();
   choices.appendChild(rebirthButton);
   choices.style.display = 'flex';
@@ -393,6 +370,11 @@ videoPlayer.addEventListener('ended', function() {
     videoSource.src = 'videos/scene_chemistry_testoverp.mp4';
     videoPlayer.load();
     videoPlayer.play();
+  } else if (currentVideo === 'videos/scene_principal_mustache.mp4') {
+    videoSource.src = 'videos/go_prank.mp4';
+    videoPlayer.load();
+    videoPlayer.play();
+
   } else if (currentVideo === 'videos/scene_chemistry_testoverf.mp4' || currentVideo === 'videos/scene_chemistry_testoverpc.mp4' || currentVideo === 'videos/scene_chemistry_testoverp.mp4' || currentVideo === 'videos/scene_chemistry_drugs.mp4') {
     videoSource.src = 'videos/scene_chemistry2.mp4';
     videoPlayer.load();
@@ -446,5 +428,10 @@ videoPlayer.addEventListener('ended', function() {
     videoSource.src = 'videos/scene_principal.mp4';
     videoPlayer.load();
     videoPlayer.play();
+  }
+   // Reset pranks when restarting the adventure
+   if (currentVideo === 'videos/scene1.mp4') {
+    sessionStorage.setItem('prank1Done', 'false');
+    sessionStorage.setItem('prank2Done', 'false');
   }
 });
