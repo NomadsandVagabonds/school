@@ -54,9 +54,9 @@ function startAdventure() {
   sessionStorage.setItem('breakfast', 'false');
   sessionStorage.setItem('cool', 'false');
   sessionStorage.setItem('popularity', '0');
+  sessionStorage.setItem('examTaken', 'false'); 
+  sessionStorage.setItem('drugsMade', 'false'); 
   sessionStorage.setItem('evil', 'false');
-  sessionStorage.setItem('prank1Done', 'false'); // Reset prank1Done
-  sessionStorage.setItem('prank2Done', 'false'); // Reset prank2Done
   updateStateDisplay(); // Call this function to update the state display
 }
 
@@ -119,43 +119,46 @@ function showChoices(video) {
       <button onclick="choosePath('videos/go3C.mp4')">Commit to your choice</button>
     `;
   } else if (video === 'videos/scene4.mp4') {
+    let pranks = parseInt(sessionStorage.getItem('pranks'));
     let prankButtonLabel = 'Do a Prank';
     let prankButtonAction = 'videos/scene_prank1.mp4';
-    if (sessionStorage.getItem('prank1Done')) {
+
+    if (pranks === 1) {
       prankButtonLabel = 'Do Another Prank';
       prankButtonAction = 'videos/scene_prank2.mp4';
-    }
-    if (sessionStorage.getItem('prank2Done')) {
+    } else if (pranks >= 2) {
       prankButtonLabel = 'Do Another Prank';
       prankButtonAction = 'videos/go_prank.mp4';
     }
-  
+
     choices.innerHTML = `
       <button onclick="choosePath('videos/scene_chemistry.mp4')">Chemistry Class</button>
       <button onclick="choosePath('videos/scene_library.mp4')">The Library</button>
       <button onclick="choosePath('videos/scene_dumpsters.mp4')">Go Outside</button>
     `;
-  
+
     if (sessionStorage.getItem('location') === 'true') {
       choices.innerHTML += `
         <button onclick="choosePath('videos/scene_teachers_lounge.mp4')">The Teachers Lounge</button>
       `;
     } else {
       choices.innerHTML += `
-        <button onclick="choosePath('${prankButtonAction}', 'prank', '${prankButtonLabel}')">${prankButtonLabel}</button>
+        <button onclick="choosePath('${prankButtonAction}')">${prankButtonLabel}</button>
       `;
     }
-  } else if (video === 'videos/scene_chemistry.mp4') {
-    choices.innerHTML = `
-      <button onclick="choosePath('videos/scene_chemistry_test.mp4')">Take the Exam</button>
-      <button onclick="sessionStorage.setItem('drugs', 'true'); updateStateDisplay(); choosePath('videos/scene_chemistry_drugs.mp4')">Make drugs</button>
-      <button onclick="choosePath('videos/go_bomb.mp4')">Make a bomb</button>
-      <button onclick="choosePath('videos/scene4.mp4')">Leave</button>
-    `;
-  } else if (video === 'videos/scene_chemistry2.mp4') {
-    choices.innerHTML = `
-      <button onclick="choosePath('videos/scene_chemistry_test.mp4')">Take the Exam</button>
-      <button onclick="sessionStorage.setItem('drugs', 'true'); updateStateDisplay(); choosePath('videos/scene_chemistry_drugs.mp4')">Make drugs</button>
+  } else if (video === 'videos/scene_chemistry.mp4' || video === 'videos/scene_chemistry2.mp4') {
+    choices.innerHTML = '';
+    if (sessionStorage.getItem('examTaken') === 'false') {
+      choices.innerHTML += `
+        <button onclick="sessionStorage.setItem('examTaken', 'true'); updateStateDisplay(); choosePath('videos/scene_chemistry_test.mp4')">Take the Exam</button>
+      `;
+    }
+    if (sessionStorage.getItem('drugsMade') === 'false') {
+      choices.innerHTML += `
+        <button onclick="sessionStorage.setItem('drugs', 'true'); sessionStorage.setItem('drugsMade', 'true'); updateStateDisplay(); choosePath('videos/scene_chemistry_drugs.mp4')">Make drugs</button>
+      `;
+    }
+    choices.innerHTML += `
       <button onclick="choosePath('videos/go_bomb.mp4')">Make a bomb</button>
       <button onclick="choosePath('videos/scene4.mp4')">Leave</button>
     `;
@@ -222,7 +225,7 @@ function showChoices(video) {
     `;
   } else if (video === 'videos/scene_principal.mp4') {
     choices.innerHTML = `
-      <button onclick="choosePath('videos/scene_principal1.mp4')">Apologize</button>
+      <button onclick="sessionStorage.setItem('pranks', (parseInt(sessionStorage.getItem('pranks')) + 1).toString()); updateStateDisplay();choosePath('videos/scene_principal1.mp4')">Apologize</button>
       <button onclick="choosePath('videos/scene_principal_mustache.mp4')">Shave his Mustache</button>
     `;
     if (sessionStorage.getItem('knowledge') === 'true' && sessionStorage.getItem('location') === 'false') {
@@ -352,13 +355,13 @@ videoPlayer.addEventListener('ended', function() {
     showRebirthButton(); // Show rebirth button for game over
   } else if (currentVideo === 'videos/scene3.mp4') {
     showChoices('videos/scene3.mp4'); // Show choices for Scene 3 when the video ends
-  } else if (currentVideo === 'videos/scene3A.mp4' || currentVideo === 'videos/scene_prank1.mp4' || currentVideo === 'videos/scene_prank2.mp4' || currentVideo ===  'videos/scene_principal1.mp4') {
+  } else if (currentVideo === 'videos/scene3A.mp4' || currentVideo ===  'videos/scene_principal1.mp4') {
     videoSource.src = 'videos/scene4.mp4';
     videoPlayer.load();
     videoPlayer.play();
   } else if (currentVideo === 'videos/scene3C.mp4') {
     showChoices('videos/scene3C.mp4'); // Show choices for Scene 3C when the video ends
-  } else if (currentVideo === 'videos/scene3B.mp4') {
+  } else if (currentVideo === 'videos/scene3B.mp4' || currentVideo === 'videos/scene_prank1.mp4' || currentVideo === 'videos/scene_prank2.mp4') {
     videoSource.src = 'videos/scene_principal.mp4';
     videoPlayer.load();
     videoPlayer.play();
@@ -416,22 +419,5 @@ videoPlayer.addEventListener('ended', function() {
   if (currentVideo.startsWith('videos/go')) {
     showRebirthButton(); // Show the rebirth button for game over videos
   }
-
-  // Track pranks
-  if (currentVideo === 'videos/scene_prank1.mp4') {
-    sessionStorage.setItem('prank1Done', true);
-    videoSource.src = 'videos/scene_principal.mp4';
-    videoPlayer.load();
-    videoPlayer.play();
-  } else if (currentVideo === 'videos/scene_prank2.mp4') {
-    sessionStorage.setItem('prank2Done', true);
-    videoSource.src = 'videos/scene_principal.mp4';
-    videoPlayer.load();
-    videoPlayer.play();
-  }
-   // Reset pranks when restarting the adventure
-   if (currentVideo === 'videos/scene1.mp4') {
-    sessionStorage.setItem('prank1Done', 'false');
-    sessionStorage.setItem('prank2Done', 'false');
-  }
+ 
 });
