@@ -8,6 +8,7 @@ var choicesDisplayed = false;
 
 // Dictionary to store choice times for each video
 var choiceTimes = {
+  'videos/scene0.mp4': 2,
   'videos/scene1.mp4': 9,
   'videos/scene2B.mp4': 3,
   'videos/scene2A.mp4': 15,
@@ -39,8 +40,10 @@ function startAdventure() {
   titleScreen.style.display = 'none';
   container.style.display = 'block';
   videoSource.src = 'videos/scene0.mp4';
+  tvImage.style.display = 'none'; // Hide the TV image
+  videoPlayer.style.display = 'block'; // Show the video player
   videoPlayer.load();
-  videoPlayer.play();
+  videoPlayer.play(); // Play the video
   // Initialize or reset the states
   sessionStorage.setItem('drugs', 'false');
   sessionStorage.setItem('pranks', '0');
@@ -91,7 +94,11 @@ function showChoices(video) {
   clearChoices();
   choices.style.display = 'flex';
 
-  if (video === 'videos/scene1.mp4') {
+  if (video === 'videos/scene0.mp4') {
+    choices.innerHTML = `
+      <button onclick="choosePath('videos/scene1.mp4')">Fast Forward</button>
+    `;
+  } else if (video === 'videos/scene1.mp4') {
     choices.innerHTML = `
       <button onclick="choosePath('videos/scene2A.mp4')">Get up immediately</button>
       <button onclick="choosePath('videos/scene2B.mp4')">Snooze the alarm</button>
@@ -176,11 +183,17 @@ function showChoices(video) {
       `;
     }
   } else if (video === 'videos/scene_library.mp4') {
-    choices.innerHTML = `
-      <button onclick="sessionStorage.setItem('study', 'true'); updateStateDisplay(); choosePath('videos/scene_library_study.mp4')">Study for the Test</button>
-      <button onclick="choosePath('videos/scene_library_nerds.mp4')">Talk to the Nerds</button>
-      <button onclick="choosePath('videos/scene_library_fort.mp4')">Build a Book Fort</button>
-      <button onclick="choosePath('videos/scene4.mp4')">Leave</button>
+    let studyState = sessionStorage.getItem('study');
+    choices.innerHTML = '';
+    if (studyState === 'false') {
+        choices.innerHTML += `
+            <button onclick="sessionStorage.setItem('study', 'true'); updateStateDisplay(); choosePath('videos/scene_library_study.mp4')">Study for the Test</button>
+        `;
+    }
+    choices.innerHTML += `
+        <button onclick="choosePath('videos/scene_library_nerds.mp4')">Talk to the Nerds</button>
+        <button onclick="choosePath('videos/scene_library_fort.mp4')">Build a Book Fort</button>
+        <button onclick="choosePath('videos/scene4.mp4')">Leave</button>
     `;
   } else if (video === 'videos/scene_library_nerds.mp4') {
       let nerdsOptions = `
@@ -234,8 +247,16 @@ function showChoices(video) {
       `;
     }
   } else if (video === 'videos/scene_dumpsters.mp4') {
-    choices.innerHTML = `
-      <button onclick="sessionStorage.setItem('knowledge', 'true'); updateStateDisplay(); choosePath('videos/scene_dumpsters_snoop.mp4')">Snoop on the Principal</button>
+    let knowledgeState = sessionStorage.getItem('knowledge') === 'false';
+    choices.innerHTML = '';
+  
+    if (knowledgeState) {
+      choices.innerHTML += `
+        <button onclick="sessionStorage.setItem('knowledge', 'true'); updateStateDisplay(); choosePath('videos/scene_dumpsters_snoop.mp4')">Snoop on the Principal</button>
+      `;
+    }
+  
+    choices.innerHTML += `
       <button onclick="choosePath('videos/scene_dumpsters_cool.mp4')">Talk to the Cool Kids</button>
       <button onclick="choosePath('videos/scene4.mp4')">Leave</button>
     `;
@@ -419,5 +440,17 @@ videoPlayer.addEventListener('ended', function() {
   if (currentVideo.startsWith('videos/go')) {
     showRebirthButton(); // Show the rebirth button for game over videos
   }
- 
 });
+function startGame() {
+  var tvImage = document.getElementById('tvImage');
+  var videoPlayer = document.getElementById('videoPlayer');
+  
+  tvImage.style.display = 'none'; // Hide the TV image
+  videoPlayer.style.display = 'block'; // Show the video player
+  videoSource.src = 'videos/scene0.mp4'; // Start the first scene
+  videoPlayer.load();
+  videoPlayer.play();
+}
+
+// Attach the event listener to the TV image
+document.getElementById('tvImage').addEventListener('click', startGame);
