@@ -72,11 +72,25 @@ video {
   cursor: pointer;
   padding: 10px;
   transition: color 0.3s;
-  font-size: 20px;
+  font-size: 2vw; /* Base font size relative to the viewport width */
 }
 
 #choices button:hover {
-  color: hotpink;
+    color: hotpink;
+}
+
+/* Styles for larger screens */
+@media (min-width: 768px) {
+    #choices button {
+        font-size: 20px; /* Set a standard font size for larger screens */
+    }
+}
+
+/* Styles for smaller screens */
+@media (max-width: 767px) {
+    #choices button {
+        font-size: 2.5vw; /* Increase the font size for smaller screens */
+    }
 }
 
 .about-page {
