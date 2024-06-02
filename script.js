@@ -40,10 +40,8 @@ function startAdventure() {
   titleScreen.style.display = 'none';
   container.style.display = 'block';
   videoSource.src = 'videos/scene0.mp4';
-  tvImage.style.display = 'none'; // Hide the TV image
-  videoPlayer.style.display = 'block'; // Show the video player
   videoPlayer.load();
-  videoPlayer.play(); // Play the video
+  videoPlayer.play();
   // Initialize or reset the states
   sessionStorage.setItem('drugs', 'false');
   sessionStorage.setItem('pranks', '0');
@@ -440,17 +438,5 @@ videoPlayer.addEventListener('ended', function() {
   if (currentVideo.startsWith('videos/go')) {
     showRebirthButton(); // Show the rebirth button for game over videos
   }
+ 
 });
-function startGame() {
-  var tvImage = document.getElementById('tvImage');
-  var videoPlayer = document.getElementById('videoPlayer');
-  
-  tvImage.style.display = 'none'; // Hide the TV image
-  videoPlayer.style.display = 'block'; // Show the video player
-  videoSource.src = 'videos/scene0.mp4'; // Start the first scene
-  videoPlayer.load();
-  videoPlayer.play();
-}
-
-// Attach the event listener to the TV image
-document.getElementById('tvImage').addEventListener('click', startGame);

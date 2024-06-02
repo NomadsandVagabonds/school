@@ -1,24 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teenage Troubles</title>
-    <link rel="stylesheet" href="style.css">
+  <title>Choose Your Adventure</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
 </head>
-<body class="play-page">
+<body>
     <nav>
         <a href="index.html">Play</a>
         <a href="about.html">About</a>
     </nav>
-    <div id="gameContainer">
-        <img id="tvImage" src="images/web_TV.png" alt="Watch an Episode" onclick="startGame()">
-        <video id="videoPlayer">
-            <source id="videoSource" src="videos/scene0.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        <div id="choices"></div>
+  <div id="titleScreen">
+    <h1>Choose Your Adventure</h1>
+    <img id="tvImage" src="images/web_TV.png" alt="Watch an Episode" onclick="startAdventure()">
+  </div>
+  <div id="container" style="display: none;">
+    <video id="videoPlayer">
+      <source id="videoSource" src="videos/scene0.mp4" type="video/mp4">
+    </video>
+    <div id="choices" class="choices-bar">
+      <!-- Choices will be dynamically inserted here -->
     </div>
-    <script src="script.js"></script>
+  </div>
+  <script src="script.js"></script>
+  <script>
+    function jumpToScene4() {
+      titleScreen.style.display = 'none';
+      container.style.display = 'block';
+      videoSource.src = 'videos/scene4.mp4';
+      videoPlayer.load();
+      videoPlayer.play();
+    }
+  </script>
 </body>
 </html>
