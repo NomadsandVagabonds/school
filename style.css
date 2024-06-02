@@ -72,8 +72,8 @@ nav a:hover {
   display: none;
   position: absolute;
   bottom: 50px; /* Ensure some space above the navigation bar */
-  left: 50%; /* Start positioning from the center */
-  transform: translateX(-50%); /* Center the element */
+  left: 0;
+  right: 0;
   background: rgba(0, 0, 0, 0.8);
   padding: 10px;
   display: flex;
