@@ -21,13 +21,13 @@ var choiceTimes = {
   'videos/scene_chemistry_test.mp4': 9,
   'videos/scene_library.mp4': 3,
   'videos/scene_library_nerds.mp4': 3,
-  'videos/scene_library_ritual.mp4': 3,
+  'videos/scene_library_ritual.mp4': 5,
   'videos/scene_library_evil.mp4': 3,
   'videos/scene_dumpsters.mp4': 3,
   'videos/scene_dumpsters_cool.mp4': 3,
   'videos/scene_dumpsters_cool2.mp4': 3,
   'videos/scene_finale_good.mp4': 3,
-  'videos/scene_finale_sneak.mp4': 3
+  'videos/scene_finale_sneak.mp4': 15
   
   
 };
@@ -224,7 +224,7 @@ function showChoices(video) {
     }
   } else if (video === 'videos/scene_finale_sneak.mp4') {
     let handState = sessionStorage.getItem('hand');
-    let stopRitualChoice = handState === 'true' ? "choosePath('videos/scene_finale_hand.mp4')" : "choosePath('videos/ending_good.mp4')";
+    let stopRitualChoice = handState === 'true' ? "choosePath('videos/ending_good.mp4')" : "choosePath('videos/ending_good.mp4')";
     
     choices.innerHTML = `
       <button onclick="${stopRitualChoice}">Stop the Ritual</button>
