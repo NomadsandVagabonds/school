@@ -219,7 +219,7 @@ function showChoices(video) {
       `;
     } else {
       choices.innerHTML += `
-        <button onclick="choosePath('videos/scene_finale_breakfast.mp4')">Create a Distraction</button>
+        <button onclick="choosePath('videos/go_breakfast.mp4')">Create a Distraction</button>
       `;
     }
   } else if (video === 'videos/scene_finale_sneak.mp4') {
