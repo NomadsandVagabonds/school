@@ -211,7 +211,7 @@ function showChoices(video) {
     `;
   } else if (video === 'videos/scene_finale_good.mp4') {
     choices.innerHTML = `
-      <button onclick="choosePath('videos/scene_finale_fight.mp4')">Fight</button>
+      <button onclick="choosePath('videos/scene_go_fight.mp4')">Fight</button>
     `;
     if (sessionStorage.getItem('breakfast') === 'true') {
       choices.innerHTML += `
@@ -274,7 +274,7 @@ function showChoices(video) {
       if (drugsState === 'true' && coolState === 'false') {
         const offerDrugsVideo = helpState === 'true' ? 'videos/scene_dumpsters_trap.mp4' : 'videos/scene_dumpsters_drugs.mp4';
         choices.innerHTML += `
-        <button onclick="sessionStorage.setItem('cool', 'true'); sessionStorage.setItem('popularity', (parseInt(sessionStorage.getItem('popularity')) + 1).toString()); updateStateDisplay(); choosePath('videos/scene_dumpsters_drugs.mp4')">Offer them Drugs</button>
+        <button onclick="sessionStorage.setItem('cool', 'true'); sessionStorage.setItem('popularity', (parseInt(sessionStorage.getItem('popularity')) + 1).toString()); updateStateDisplay(); choosePath('${offerDrugsVideo}')">Offer them Drugs</button>
         `;
       }
     }
@@ -414,7 +414,7 @@ videoPlayer.addEventListener('ended', function() {
     videoSource.src = 'videos/go_dumpsters.mp4';
     videoPlayer.load();
     videoPlayer.play();
-  } else if (currentVideo === 'videos/scene_dumpsters_drugs.mp4') {
+  } else if (currentVideo === 'videos/scene_dumpsters_drugs.mp4' || currentVideo === 'videos/scene_dumpsters_trap.mp4') {
     videoSource.src = 'videos/scene_dumpsters_cool.mp4';
     videoPlayer.load();
     videoPlayer.play();
